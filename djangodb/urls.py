@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from order.views import index
+from order.views import index, signup, signupok
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +24,6 @@ urlpatterns = [
 
 urlpatterns += [
     path('', index),
+    path('signup/', signup),
+    path('signupok/', signupok),
 ]
