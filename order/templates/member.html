@@ -9,6 +9,17 @@
 {% endif %}
 {% endblock %}
 
+
 {% block content %}
-<a href="/register/">註冊</a>
+
+<p>{{uname}}您好</p>
+<hr>
+<p>is_login: {{status}}</p>
+<p>email: {{email}}</p>
+<p>pwd: {{pwd}}</p>
+<p>uname: {{uname}}</p>
+
+<p></p><a href="#">Logout</a></p>
+<p><a href="/">Home</a></p>
+
 {% endblock %}

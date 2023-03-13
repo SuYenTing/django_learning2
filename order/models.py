@@ -21,3 +21,7 @@ class OrderDetail(models.Model):
     cid = models.CharField(max_length=4)
     channel = models.PositiveIntegerField()
 
+class Member(models.Model):
+    email = models.CharField(max_length=64)
+    pwd = models.CharField(max_length=64)
+    uname = models.CharField(max_length=64)
