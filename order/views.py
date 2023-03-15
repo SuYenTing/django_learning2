@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from order.forms import UserInfoForm, MemberForm
+from order.forms import UserInfoForm, MemberForm, MemberLoginForm
 from order.models import UserInfo, Member
 
 # Create your views here.
@@ -44,14 +44,18 @@ def register(request):
                 form.save()
 
                 # 正確放置位置 資料庫確認儲存完後 才會讓session紀錄
-                # request.session['is_login'] = True
-                # request.session['email'] = Member.email
-                # request.session['pwd'] = Member.pwd
-                # request.session['uname'] = Member.uname
+                # 寫法1
+                result = Member.objects.get(email=form.cleaned_data['email'])
                 request.session['is_login'] = True
-                request.session['email'] = form.cleaned_data['email']
-                request.session['pwd'] = form.cleaned_data['pwd']
-                request.session['uname'] = form.cleaned_data['uname']                     
+                request.session['email'] = result.email
+                request.session['pwd'] = result.pwd
+                request.session['uname'] = result.uname
+
+                # # 寫法2
+                # request.session['is_login'] = True
+                # request.session['email'] = form.cleaned_data['email']
+                # request.session['pwd'] = form.cleaned_data['pwd']
+                # request.session['uname'] = form.cleaned_data['uname']                     
                     
                 return redirect('/member')
             except:
@@ -79,3 +83,29 @@ def member(request):
 def logout(request):
     request.session.flush()
     return redirect('/')
+
+
+def login(request):
+
+    member = Member.objects.all()
+    form = MemberLoginForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+
+            email = form.cleaned_data['email']
+            pwd = form.cleaned_data['pwd']
+            result = Member.objects.filter(email=email, pwd=pwd).first()
+            if not result:
+                return redirect('/login')
+            else:
+                request.session['is_login'] = True
+                request.session['email'] = result.email
+                request.session['pwd'] = result.pwd
+                request.session['uname'] = result.uname
+                return redirect('/member')
+    else:
+        form = MemberLoginForm()
+        context = {
+            'form': form,
+        }
+        return render(request, 'login.html', context)

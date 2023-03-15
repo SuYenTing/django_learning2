@@ -1,17 +1,6 @@
 {% extends 'base.html' %}
-
-{% block user %}
-{% if status %}
-<span>{{uname}} 您好</span>
-<a href="/logout/">登出</a>
-{% else %}
-<a href="#">登入</a>
-{% endif %}
-{% endblock %}
-
-
 {% block content %}
-
+<h1>Member Page</h1>
 <p>{{uname}}您好</p>
 <hr>
 <p>is_login: {{status}}</p>

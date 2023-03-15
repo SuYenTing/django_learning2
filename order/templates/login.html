@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    {# form #}
+    {{form.email}}<br>
+    {{form.pwd}}<br>
+    <input type="submit" value="登入">
+</form>
+{% endblock %}

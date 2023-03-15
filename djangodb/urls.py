@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from order.views import index, signup, signupok, register, member, logout
+from order.views import index, signup, signupok, register, member, logout, login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +28,6 @@ urlpatterns += [
     path('signupok/', signupok),
     path('register/', register),
     path('member/', member),
-    path('logout/', logout)
+    path('logout/', logout),
+    path('login/', login),
 ]

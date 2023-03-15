@@ -17,3 +17,13 @@ class MemberForm(forms.ModelForm):
             'pwd': forms.PasswordInput(attrs={'placeholder': 'Enter Password'}),
             'uname': forms.TextInput(attrs={'placeholder': 'Enter Name'}),
         }
+
+class MemberLoginForm(forms.ModelForm):
+    class Meta:
+        model=Member
+        # fields="__all__"
+        fields=('email', 'pwd')
+        widgets={
+            'email': forms.EmailInput(attrs={'placeholder': 'Enter Email'}),
+            'pwd': forms.PasswordInput(attrs={'placeholder': 'Enter Password'}),
+        }
