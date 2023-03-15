@@ -109,3 +109,58 @@ def login(request):
             'form': form,
         }
         return render(request, 'login.html', context)
+    
+
+def update(request, email):
+
+    status = request.session.get('is_login')
+    if status:
+        member = Member.objects.get(email=email)
+        form = MemberForm(instance=member)
+        if request.method == 'POST':
+            form = MemberForm(request.POST, instance=member)
+            if form.is_valid():
+        
+                try:
+                    form.save()
+                    request.session['is_login'] = True
+                    request.session['email'] = form.cleaned_data['email']
+                    request.session['pwd'] = form.cleaned_data['pwd']
+                    request.session['uname'] = form.cleaned_data['uname']                       
+                    return redirect('/updateok')
+                except:
+                    pass
+
+        context = {
+            'member': member,
+            'form': form,
+        }
+
+        return render(request, 'update.html', context)
+    
+    else:
+        return redirect('/')
+    
+
+def updateok(request):
+    status=request.session.get('is_login')
+    email=request.session.get('email')
+    pwd=request.session.get('pwd')
+    uname=request.session.get('uname')
+    if not status:
+        return redirect('/')
+    return render(request,'updateok.html',locals())
+
+
+def delete(request, email):
+
+    status = request.session.get('is_login')
+    if status:
+
+        member = Member.objects.get(email=email)
+        member.delete()
+        logout(request)
+        return render(request, 'index.html', {'delflag': True})
+    
+    else:
+        return redirect('/')

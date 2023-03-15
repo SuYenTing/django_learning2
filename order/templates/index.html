@@ -1,4 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>Homepage</h1>
+
+{% if delflag %}
+    <script>alert('有緣再相會!')</script>
+{% endif %}
+
+
 {% endblock %}

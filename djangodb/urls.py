@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from order.views import index, signup, signupok, register, member, logout, login
+from order.views import index, signup, signupok, register, member, logout, login, update, updateok, delete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,4 +30,7 @@ urlpatterns += [
     path('member/', member),
     path('logout/', logout),
     path('login/', login),
+    path('update/<str:email>', update),
+    path('updateok/', updateok),
+    path('delete/<str:email>', delete)
 ]
