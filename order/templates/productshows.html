@@ -3,7 +3,7 @@
 <h1>Product Shows</h1>
 
 {% for i in product %}
-    <p>{{i.id}}, {{i.name}}, {{i.unit}}, {{i.price}}</p>
+    <p><a href="/productedit/{{i.id}}">{{i.id}}</a>, {{i.name}}, {{i.unit}}, {{i.price}}</p>
     <hr>
 {% endfor %}
 

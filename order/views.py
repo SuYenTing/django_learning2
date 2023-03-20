@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from order.forms import UserInfoForm, MemberForm, MemberLoginForm
+from order.forms import UserInfoForm, MemberForm, MemberLoginForm, ProductForm
 from order.models import UserInfo, Member, Product
 
 # Create your views here.
@@ -174,3 +174,30 @@ def productshows(request):
         return render(request, 'productshows.html', locals())
     else:
         return redirect('/')
+    
+
+def productedit(request, id):
+    status = request.session.get('is_login')
+    if not status:
+        return redirect('/')
+    
+    product = Product.objects.get(id=id)
+    form = ProductForm(instance=product)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+    
+            try:
+                form.save()
+                return redirect('/proudcteditok')
+            except:
+                pass    
+
+    return render(request, 'productedit.html', locals())
+
+
+def producteditok(request):
+    status=request.session.get('is_login')
+    if not status:
+        return redirect('/')
+    return render(request,'proudcteditok.html', locals())
