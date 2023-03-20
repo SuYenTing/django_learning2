@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from order.forms import UserInfoForm, MemberForm, MemberLoginForm
-from order.models import UserInfo, Member
+from order.models import UserInfo, Member, Product
 
 # Create your views here.
 def index(request):
@@ -162,5 +162,15 @@ def delete(request, email):
         logout(request)
         return render(request, 'index.html', {'delflag': True})
     
+    else:
+        return redirect('/')
+
+
+def productshows(request):
+    status = request.session.get('is_login')
+    if status:
+        uname = request.session.get('uname')
+        product = Product.objects.all()
+        return render(request, 'productshows.html', locals())
     else:
         return redirect('/')
